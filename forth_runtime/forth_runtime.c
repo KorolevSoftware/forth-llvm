@@ -70,6 +70,21 @@ void dup(void) {
 	puts("dup void");
 }
 
+void print(void) {
+	struct forth_data to_copy = drop_ret();
+	if (to_copy.type == Integer) {
+		printf("%d", to_copy.data.integer);
+	}
+
+	if (to_copy.type == Float) {
+		printf("%f", to_copy.data.floating);
+	}
+
+	if (to_copy.type == String) {
+		printf("%s", to_copy.data.string);
+	}
+}
+
 void swap(void) {
 }
 

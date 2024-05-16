@@ -38,7 +38,21 @@ namespace { // Private
 
 	std::shared_ptr<Instruction> parse_runtime_push(std::vector<Token>::iterator& iter, std::vector<Token>::iterator& iter_end) {
 		Token& current_token = *iter;
-		return std::make_shared<FunctionCallAST>("push", current_token.value);
+		std::string name;
+
+		if (std::holds_alternative<int>(current_token.value)) {
+			name = "push_integer";
+		}
+
+		if (std::holds_alternative<float>(current_token.value)) {
+			name = "push_float";
+		}
+
+		if (std::holds_alternative<std::string>(current_token.value)) {
+			name = "push_string";
+		}
+
+		return std::make_shared<FunctionCallAST>(name, current_token.value);
 	}
 
 	std::vector< std::shared_ptr<Instruction>> parse_body(std::vector<Token>::iterator& iter, std::vector<Token>::iterator& iter_end) {
@@ -57,6 +71,7 @@ namespace { // Private
 				body.emplace_back(parse_runtime_push(iter, iter_end));
 				break;
 
+			case token_type::Print:
 			case token_type::Multip:
 			case token_type::Drop: 
 			case token_type::Dublicate:
@@ -83,7 +98,8 @@ void ASTBuilder::build(std::vector<Token> tokens) {
 		{"push_float", FunctionPrototypeAST::argument_type::Float},
 		// Operators
 		{"drop"},
-		{"	"},
+		{"swap"},
+		{"print"},
 		{"dup"},
 	};
 

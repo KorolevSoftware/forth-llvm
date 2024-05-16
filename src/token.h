@@ -11,9 +11,10 @@ enum class token_type {
 	Dublicate, // dup
 	Drop, // drop
 	Swap, // swap
+	Print,
 	Ident,
 	Multip,
-	Constant
+	Constant,
 };
 
 struct test {

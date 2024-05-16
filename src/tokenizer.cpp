@@ -16,6 +16,7 @@ namespace {
         {"swap", token_type::Swap },
         {"const", token_type::Constant },
         {"*", token_type::Multip },
+        {"print", token_type::Print },
       
     };
 

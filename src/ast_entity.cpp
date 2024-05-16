@@ -76,17 +76,17 @@ llvm::Value* FunctionCallAST::codegen(llvm::LLVMContext& context, llvm::IRBuilde
 	
 	if (name == "push_integer") {
 		llvm::Value* arg_value = llvm::ConstantInt::get(context, llvm::APInt(32, std::get<int>(value), true));
-		return builder.CreateCall(function, { arg_value }, "calltmp");
+		return builder.CreateCall(function, { arg_value });
 	}
 
 	if (name == "push_float") {
 		llvm::Value* arg_value = llvm::ConstantFP::get(context, llvm::APFloat(std::get<float>(value)));
-		return builder.CreateCall(function, { arg_value }, "calltmp");
+		return builder.CreateCall(function, { arg_value });
 	}
 
 	if (name == "push_string") {
 		llvm::Value* arg_value = builder.CreateGlobalStringPtr(llvm::StringRef("Hello, world!"));
-		return builder.CreateCall(function, { arg_value }, "calltmp");
+		return builder.CreateCall(function, { arg_value });
 	}
 
 	return builder.CreateCall(function, {});
